@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <conio.h>
 using namespace std;
 
 class books{
@@ -22,7 +23,7 @@ int main(){
     cout<<"4-Choose category \n";
     cout<<"5-ADMIN control \n";
     cout<<"Esc-Exit program \n";
-    cin>>op;
+    op=getch();
     switch(op){
         case 1:{
             obj.display_books();
