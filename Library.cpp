@@ -30,27 +30,34 @@ int main(){
     cout<<"Esc-Exit program \n";
     op=getch();
     switch(op){
-        case 1:{
+        case '1':{
             obj.display_books();
+            break;
         }
-        case 2:{
+        case '2':{
             obj.sbyid();
+            break;
         }
-        case 3:{
+        case '3':{
             obj.sbytitle();
+            break;
         }
-        case 4:{
+        case '4':{
         obj.sbyauther();
+            break;
         }
-        case 5:{
+        case '5':{
             obj.sbycategory();
+            break;
         }
-        case 6:{
+        case '6':{
             obj.admin();
+            break;
         }
         case 27:{
             return 0;
         }
+
     }
 
     return 0;
@@ -92,30 +99,39 @@ void books :: admin(){
     switch(op){
         case 1:{
             obj.display_books();
+            break;
         }
         case 2:{
             obj.sbytitle();
+            break;
         }
         case 3:{
             obj.sbytitle();
+            break;
         }
         case 4:{
         obj.sbyauther();
+            break;
         }
         case 5:{
             obj.sbycategory();
+            break;
         }
         case 6:{
             obj.add_book();
+            break;
         }
         case 7:{
             obj.remove_book();
+            break;
         }
         case 8:{
             obj.modify_book();
+            break;
         }
         case 27:{
             main();
+            break;
         }
     }
 }
