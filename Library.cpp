@@ -5,7 +5,7 @@
 using namespace std;
 
 class books{
-    string id,title,auther;
+    string id,title,auther,category;
     public:
     void display_books();
     void sbyid();
@@ -97,35 +97,35 @@ void books :: admin(){
     cout<<"Esc-Back to main menu \n";
     op=getch();
     switch(op){
-        case 1:{
+        case '1':{
             obj.display_books();
             break;
         }
-        case 2:{
+        case '2':{
             obj.sbytitle();
             break;
         }
-        case 3:{
+        case '3':{
             obj.sbytitle();
             break;
         }
-        case 4:{
+        case '4':{
         obj.sbyauther();
             break;
         }
-        case 5:{
+        case '5':{
             obj.sbycategory();
             break;
         }
-        case 6:{
+        case '6':{
             obj.add_book();
             break;
         }
-        case 7:{
+        case '7':{
             obj.remove_book();
             break;
         }
-        case 8:{
+        case '8':{
             obj.modify_book();
             break;
         }
@@ -137,6 +137,12 @@ void books :: admin(){
 }
 
 void books :: add_book(){
+    getline(cin,id);
+    getline(cin,title);
+    getline(cin,auther);
+    getline(cin,category);
+    ofstream book (category+".vsc", ios::app);
+    book<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category<<endl;
     
 }
 void books :: remove_book(){
