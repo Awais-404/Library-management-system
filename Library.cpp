@@ -99,32 +99,32 @@ void books :: sbytitle(){
    string tit;
     cout<<"Please enter the title"<<endl;
     ifstream book("computer.vsc");
-//    while(getline(book.end!=true)){
-//     if(title==tit){
-//          cout<<id<<"\t";
-//         cout<<title<<"\t";
-//         cout<<auther<<"\t";
-//         cout<<category<<endl;
-//         break;
-//     }
-//    }
+   while(getline(book.end!=true)){
+    if(title==tit){
+         cout<<id<<"\t";
+        cout<<title<<"\t";
+        cout<<auther<<"\t";
+        cout<<category<<endl;
+        break;
+    }
+   }
    book.close();
 }
 
 void books :: sbyauther(){
     string aut;
     cout<<"Please enter the auther name"<<endl;
-//     ifstream book("computer.vsc");
-//    while(getline(book.end!=true)){
-//     if(auther==aut){
-//          cout<<id<<"\t";
-//             cout<<title<<"\t";
-//             cout<<auther<<"\t";
-//             cout<<category<<endl;
-//             break;
-//     }
-//    }
-//    book.close();
+    ifstream book("computer.vsc");
+   while(getline(book.end!=true)){
+    if(auther==aut){
+         cout<<id<<"\t";
+            cout<<title<<"\t";
+            cout<<auther<<"\t";
+            cout<<category<<endl;
+            break;
+    }
+   }
+   book.close();
 }
 
 void books :: sbycategory(){
