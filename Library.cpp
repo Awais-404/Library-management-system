@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <vector>
 #include <conio.h>
 using namespace std;
@@ -64,23 +65,87 @@ int main(){
 }
 
 void books :: display_books(){
+    string file;
+    ifstream book("computer.vsc");
+    while(getline(book,file)){
+    cout<<file;
 
+    }
+    book.close();
 }
 
 void books :: sbyid(){
-    
+    string sid;
+    cout<<"Enter book ID ";
+    getline(cin,sid);
+    ifstream book("computer.vsc");
+    do{
+        getline(book,id,"\t");
+        getline(book,title,"\t");
+        getline(book,auther,"\t");
+        getline(book,category,"\n");
+        if(id==sid){
+            cout<<id<<"\t";
+            cout<<title<<"\t";
+            cout<<auther<<"\t";
+            cout<<category<<endl;
+            break;
+        }
+    }while(book.end!=true);
+    book.close();
 }
 
 void books :: sbytitle(){
-    
+   string tit;
+    cout<<"Please enter the title"<<endl;
+    ifstream book("computer.vsc")
+   while(getline(book.end!=true)){
+    if(title==tit){
+         cout<<id<<"\t";
+        cout<<title<<"\t";
+        cout<<auther<<"\t";
+        cout<<category<<endl;
+        break;
+    }
+   }
+   book.close();
 }
 
 void books :: sbyauther(){
-    
+    string aut;
+    cout<<"Please enter the auther name"<<endl;
+    ifstream book("computer.vsc")
+   while(getline(book.end!=true)){
+    if(auther==aut){
+         cout<<id<<"\t";
+            cout<<title<<"\t";
+            cout<<auther<<"\t";
+            cout<<category<<endl;
+            break;
+    }
+   }
+   book.close();
 }
 
 void books :: sbycategory(){
-    
+    string scat;
+    cout<<"Enter book ID ";
+    getline(cin,scat);
+    ifstream book("computer.vsc");
+    do{
+        getline(book,id,"\t");
+        getline(book,title,"\t");
+        getline(book,auther,"\t");
+        getline(book,category,"\n");
+        if(category==scat){
+            cout<<id<<"\t";
+            cout<<title<<"\t";
+            cout<<auther<<"\t";
+            cout<<category<<endl;
+            break;
+        }
+    }while(book.end!=true);
+    book.close();
 }
 
 void books :: admin(){
@@ -141,10 +206,11 @@ void books :: add_book(){
     getline(cin,title);
     getline(cin,auther);
     getline(cin,category);
-    ofstream book (category+".vsc", ios::app);
+    ofstream book (category+"computer.vsc", ios::app);
     book<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category<<endl;
     
 }
+
 void books :: remove_book(){
     
 }

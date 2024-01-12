@@ -1,0 +1,1 @@
+3r432	cd "d:\GitHub\Library-management-system\" ; if ($?) { g++ Library.cpp -o Library } ; if ($?) { .\Library }		
