@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
-// #include <string>
+#include <iomanip>
 #include <vector>
 #include <conio.h>
 using namespace std;
 
 class books{
-    string id,title,auther,category;
+    string id,title,auther,category,search;
     public:
     void display_books();
     void sbyid();
@@ -17,9 +17,14 @@ class books{
     void add_book();
     void remove_book();
     void modify_book();
+    string truncate(string str,int size);
+    void sort();
 }obj;
 
 int main(){
+    system("cls");
+    system("color 0A");
+    cout<<left;
     char op;
     cout<<"Choose an action: \n";
     cout<<"1-Show all books \n";
@@ -44,7 +49,7 @@ int main(){
             break;
         }
         case '4':{
-        obj.sbyauther();
+            obj.sbyauther();
             break;
         }
         case '5':{
@@ -64,91 +69,9 @@ int main(){
     return 0;
 }
 
-void books :: display_books(){
-    string file;
-    ifstream book("computer.vsc");
-    while(getline(book,file)){
-    cout<<file<<endl;
-
-    }
-    book.close();
-}
-
-void books :: sbyid(){
-    string sid;
-    cout<<"Enter book ID ";
-    getline(cin,sid);
-    ifstream book("computer.vsc");
-    do{
-        getline(book,id,'\t');
-        getline(book,title,'\t');
-        getline(book,auther,'\t');
-        getline(book,category,'\n');
-        if(id==sid){
-            cout<<id<<"\t";
-            cout<<title<<"\t";
-            cout<<auther<<"\t";
-            cout<<category<<endl;
-            break;
-        }
-    }while(book.end!=true);
-    book.close();
-}
-
-void books :: sbytitle(){
-   string tit;
-    cout<<"Please enter the title"<<endl;
-    ifstream book("computer.vsc");
-   while(getline(book.end!=true)){
-    if(title==tit){
-         cout<<id<<"\t";
-        cout<<title<<"\t";
-        cout<<auther<<"\t";
-        cout<<category<<endl;
-        break;
-    }
-   }
-   book.close();
-}
-
-void books :: sbyauther(){
-    string aut;
-    cout<<"Please enter the auther name"<<endl;
-    ifstream book("computer.vsc");
-   while(getline(book.end!=true)){
-    if(auther==aut){
-         cout<<id<<"\t";
-            cout<<title<<"\t";
-            cout<<auther<<"\t";
-            cout<<category<<endl;
-            break;
-    }
-   }
-   book.close();
-}
-
-void books :: sbycategory(){
-    string scat;
-    cout<<"Enter book ID ";
-    getline(cin,scat);
-    ifstream book("computer.vsc");
-    do{
-        getline(book,id,'\t');
-        getline(book,title,'\t');
-        getline(book,auther,'\t');
-        getline(book,category,'\n');
-        if(category==scat){
-            cout<<id<<"\t";
-            cout<<title<<"\t";
-            cout<<auther<<"\t";
-            cout<<category<<endl;
-            break;
-        }
-    }while(book.end!=true);
-    book.close();
-}
-
 void books :: admin(){
+    system("cls");
+    system("color 09");
     char op;
     cout<<"Choose an action: \n";
     cout<<"1-Show all books \n";
@@ -175,7 +98,7 @@ void books :: admin(){
             break;
         }
         case '4':{
-        obj.sbyauther();
+            obj.sbyauther();
             break;
         }
         case '5':{
@@ -201,14 +124,111 @@ void books :: admin(){
     }
 }
 
+void books :: display_books(){
+    system("cls");
+    ifstream book("computer.vsc");
+    cout<<setw(8)<<"Book ID"<<setw(30)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
+    do{
+        getline(book,id,'\t');
+        getline(book,title,'\t');
+        getline(book,auther,'\t');
+        getline(book,category,'\n');
+        cout<<setw(8)<<id<<setw(30)<<truncate(title,29)<<setw(20)<<auther<<setw(15)<<category<<endl;
+    }while(!book.eof());
+    book.close();
+}
+
+void books :: sbyid(){
+    system("cls");
+    cout<<"Enter book ID ";
+    getline(cin,search);
+    ifstream book("computer.vsc");
+    cout<<setw(8)<<"Book ID"<<setw(30)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
+    do{
+        getline(book,id,'\t');
+        getline(book,title,'\t');
+        getline(book,auther,'\t');
+        getline(book,category,'\n');
+        if(id==search){
+            cout<<setw(8)<<id<<setw(30)<<truncate(title,29)<<setw(20)<<auther<<setw(15)<<category<<endl;
+            break;
+        }
+    }while(!book.eof());
+    book.close();
+}
+
+void books :: sbytitle(){
+   string tit;
+    cout<<"Please enter the title"<<endl;
+//     ifstream book("computer.vsc");
+//    while(getline(book.end!=true)){
+//     if(title==tit){
+//          cout<<id<<"\t";
+//         cout<<title<<"\t";
+//         cout<<auther<<"\t";
+//         cout<<category<<endl;
+//         break;
+//     }
+//    }
+//    book.close();
+}
+
+void books :: sbyauther(){
+    string aut;
+    cout<<"Please enter the auther name"<<endl;
+//     ifstream book("computer.vsc");
+//    while(getline(book.end!=true)){
+//     if(auther==aut){
+//          cout<<id<<"\t";
+//             cout<<title<<"\t";
+//             cout<<auther<<"\t";
+//             cout<<category<<endl;
+//             break;
+//     }
+//    }
+//    book.close();
+}
+
+void books :: sbycategory(){
+    system("cls");
+    cout<<"Enter category ";
+    getline(cin,search);
+    ifstream book("computer.vsc");
+    cout<<setw(8)<<"Book ID"<<setw(30)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
+    do{
+        getline(book,id,'\t');
+        getline(book,title,'\t');
+        getline(book,auther,'\t');
+        getline(book,category,'\n');
+        if(category==search){
+            cout<<setw(8)<<id<<setw(30)<<title<<setw(20)<<auther<<setw(15)<<category<<endl;
+        }
+    }while(!book.eof());
+    book.close();
+}
+
 void books :: add_book(){
-    getline(cin,id);
-    getline(cin,title);
-    getline(cin,auther);
-    getline(cin,category);
+    system("cls");
     ofstream book ("computer.vsc", ios::app);
-    book<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category<<endl;
-    
+    while(true){
+        cout<<"Enter book ID: ";
+        getline(cin,id);
+        cout<<"Enter book title: ";
+        getline(cin,title);
+        cout<<"Enter book auther: ";
+        getline(cin,auther);
+        cout<<"Enter book category: ";
+        getline(cin,category);
+        book<<"\n"<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category;
+        cout<<"Book added "<<endl;
+        cout<<"press Esc to return to main menu \nor any button to continue adding books...";
+        if(getch()==27){
+            obj.admin();
+        }
+        else{
+        }
+    }
+    book.close();
 }
 
 void books :: remove_book(){
@@ -216,4 +236,17 @@ void books :: remove_book(){
 }
 void books :: modify_book(){
     
+}
+
+string books :: truncate(string str,int size){
+    if(str.length()>size){
+       return str.substr(0,36)+"...";
+    }
+    else{
+       return str;
+    }
+}
+
+void books :: sort(){
+
 }
