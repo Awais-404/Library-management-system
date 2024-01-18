@@ -128,13 +128,17 @@ void books :: display_books(){
     system("cls");
     ifstream book("computer.vsc");
     cout<<setw(10)<<"Book ID"<<setw(35)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
-    do{
+    getline(book,id,'\t');
+    getline(book,title,'\t');
+    getline(book,auther,'\t');
+    getline(book,category,'\n');
+    while(!book.eof()){
+        cout<<setw(10)<<id<<setw(35)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
         getline(book,id,'\t');
         getline(book,title,'\t');
         getline(book,auther,'\t');
         getline(book,category,'\n');
-        cout<<setw(10)<<id<<setw(35)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
-    }while(!book.eof());
+    }
     book.close();
 }
 
@@ -218,12 +222,7 @@ void books :: add_book(){
         getline(cin,auther);
         cout<<"Enter book category: ";
         getline(cin,category);
-        if(book.tellp()==0){
         book<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category<<endl;
-        }
-        else{
-        book<<endl<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category;
-        }
         cout<<"Book added "<<endl;
         cout<<"press Esc to return to main menu \nor any button to continue adding books..."<<endl;
         if(getch()==27){
