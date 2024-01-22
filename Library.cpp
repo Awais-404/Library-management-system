@@ -6,13 +6,14 @@
 using namespace std;
 
 class books{
-    string id,title,auther,category,search;
+    string id,title,auther,category,search,pass;
     public:
     void display_books();
     void sbyid();
     void sbytitle();
     void sbyauther();
     void sbycategory();
+    void password();
     void admin();
     void add_book();
     void remove_book();
@@ -23,7 +24,7 @@ class books{
 
 int main(){
     system("cls");
-    system("color 0A");
+    system("color 0B");
     cout<<left;
     char op;
     cout<<"Choose an action: \n";
@@ -57,7 +58,8 @@ int main(){
             break;
         }
         case '6':{
-            obj.admin();
+            system("cls");
+            obj.password();
             break;
         }
         case 27:{
@@ -69,9 +71,31 @@ int main(){
     return 0;
 }
 
+void books :: password(){
+    char op;
+    cout<<"Enter password:\n\t";
+    getline(cin,pass);
+    if(pass=="1234"){
+        obj.admin();
+    }
+    else{
+        cout<<"Incorrect Password"<<endl;
+        cout<<"Press Esc to return to main menu \nor any key to try again"<<endl;
+        op=getch();
+        if (op==27)
+        {
+            main();
+        }
+        else{
+            password();
+        }
+        
+    }
+}
+
 void books :: admin(){
     system("cls");
-    system("color 09");
+    system("color 0A");
     char op;
     cout<<"Choose an action: \n";
     cout<<"1-Show all books \n";
@@ -126,7 +150,7 @@ void books :: admin(){
 
 void books :: display_books(){
     system("cls");
-    ifstream book("computer.vsc");
+    ifstream book("book data.vsc");
     cout<<setw(10)<<"Book ID"<<setw(35)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
     getline(book,id,'\t');
     getline(book,title,'\t');
@@ -144,9 +168,9 @@ void books :: display_books(){
 
 void books :: sbyid(){
     system("cls");
-    cout<<"Enter book ID ";
+    cout<<"Enter book ID:\t";
     getline(cin,search);
-    ifstream book("computer.vsc");
+    ifstream book("book data.vsc");
     cout<<setw(10)<<"Book ID"<<setw(35)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
     do{
         getline(book,id,'\t');
@@ -162,42 +186,46 @@ void books :: sbyid(){
 }
 
 void books :: sbytitle(){
-   string tit;
-    cout<<"Please enter the title"<<endl;
-//     ifstream book("computer.vsc");
-//    while(getline(book.end!=true)){
-//     if(title==tit){
-//          cout<<id<<"\t";
-//         cout<<title<<"\t";
-//         cout<<auther<<"\t";
-//         cout<<category<<endl;
-//         break;
-//     }
-//    }
-//    book.close();
+   system("cls");
+    cout<<"Enter title:\t";
+    getline(cin,search);
+    ifstream book("book data.vsc");
+    cout<<setw(10)<<"Book ID"<<setw(35)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
+    do{
+        getline(book,id,'\t');
+        getline(book,title,'\t');
+        getline(book,auther,'\t');
+        getline(book,category,'\n');
+        if(title==search){
+            cout<<setw(10)<<id<<setw(35)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
+        }
+    }while(!book.eof());
+    book.close();
 }
 
 void books :: sbyauther(){
-    string aut;
-    cout<<"Please enter the auther name"<<endl;
-//     ifstream book("computer.vsc");
-//    while(getline(book.end!=true)){
-//     if(auther==aut){
-//          cout<<id<<"\t";
-//             cout<<title<<"\t";
-//             cout<<auther<<"\t";
-//             cout<<category<<endl;
-//             break;
-//     }
-//    }
-//    book.close();
+    system("cls");
+    cout<<"Enter auther name:\t";
+    getline(cin,search);
+    ifstream book("book data.vsc");
+    cout<<setw(10)<<"Book ID"<<setw(35)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
+    do{
+        getline(book,id,'\t');
+        getline(book,title,'\t');
+        getline(book,auther,'\t');
+        getline(book,category,'\n');
+        if(auther==search){
+            cout<<setw(10)<<id<<setw(35)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
+        }
+    }while(!book.eof());
+    book.close();
 }
 
 void books :: sbycategory(){
     system("cls");
-    cout<<"Enter category ";
+    cout<<"Enter category:\t";
     getline(cin,search);
-    ifstream book("computer.vsc");
+    ifstream book("book data.vsc");
     cout<<setw(10)<<"Book ID"<<setw(35)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
     do{
         getline(book,id,'\t');
@@ -213,7 +241,7 @@ void books :: sbycategory(){
 
 void books :: add_book(){
     system("cls");
-    ofstream book ("computer.vsc", ios::app);
+    ofstream book ("book data.vsc", ios::app);
         cout<<"Enter book ID: ";
         getline(cin,id);
         cout<<"Enter book title: ";
@@ -236,7 +264,7 @@ void books :: add_book(){
 
 void books :: remove_book(){
     vector<string>idv,titlev,autherv,categoryv;
-    ifstream book("computer.vsc");
+    ifstream book("book data.vsc");
     for(int i=0;!book.eof();i++){
         getline(book,id,'\t');
         getline(book,title,'\t');
@@ -251,7 +279,7 @@ void books :: remove_book(){
 
     cout<<"Enter ID of book to be removed: ";
     cin>>search;
-    ofstream book2("computer.vsc");
+    ofstream book2("book data.vsc");
     for(int i = 0; i<idv.size() ; i++)
     {
         if (idv[i]!=search)
