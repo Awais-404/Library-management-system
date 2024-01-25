@@ -260,6 +260,8 @@ void books :: add_book(){
             obj.add_book();
         }
     book.close();
+
+    sort();
 }
 
 void books :: remove_book(){
@@ -284,12 +286,7 @@ void books :: remove_book(){
     {
         if (idv[i]!=search)
         {
-            if (book2.tellp()==0)
-            {
             book2<<idv[i]<<"\t"<<titlev[i]<<"\t"<<autherv[i]<<"\t"<<categoryv[i]<<endl;
-            }else{
-            book2<<endl<<idv[i]<<"\t"<<titlev[i]<<"\t"<<autherv[i]<<"\t"<<categoryv[i];
-            }
         }
         else{
             continue;
@@ -312,5 +309,38 @@ string books :: truncate(string str,int size){
 }
 
 void books :: sort(){
+    vector<string>idv,titlev;
+    ifstream book("book data.vsc");
+    for(int i=0;!book.eof();i++){
+        getline(book,id,'\t');
+        getline(book,title,'\n');
+        idv.push_back(id);
+        titlev.push_back(title);
+    }
+    book.close();
+    
+    int n= titlev.size();
+    string temp;
+   for (int i = 0; i < n; i++){
+      for (int j = i+1; j < n; j++)
+      {
+         if (titlev[i]>titlev[j])
+         {
+            temp=titlev[i];
+            titlev[i]=titlev[j];
+            titlev[j]=temp;
 
+            temp=idv[i];
+            idv[i]=idv[j];
+            idv[j]=temp;
+         }  
+      }
+   }
+
+   ofstream book2("book data.vsc");
+    for(int i = 0; i<idv.size() ; i++)
+    {
+        book2<<idv[i]<<"\t"<<titlev[i]<<endl;
+    }
+    book2.close();
 }
