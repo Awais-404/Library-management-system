@@ -30,6 +30,9 @@ int main(){
     system("cls");
     system("color 0B");
     cout<<left;
+    cout<<"\t\t================================================================"<<endl;
+    cout<<"\t\t                            LIBRARY                             "<<endl;
+    cout<<"\t\t================================================================"<<endl;
     char op;
     cout<<"\t\t\t\t\t"<<"Choose an action \n";
     cout<<"\t\t\t"<<setw(30)<<"1-Show all books"<<"2-Search by ID \n";
@@ -98,6 +101,9 @@ void books :: admin(){
     mode=2;
     system("cls");
     system("color 0A");
+    cout<<"\t\t================================================================"<<endl;
+    cout<<"\t\t                            LIBRARY                             "<<endl;
+    cout<<"\t\t================================================================"<<endl;
     char op;
     cout<<"\t\t\t\t\t"<<"Choose an action \n";
     cout<<"\t\t\t"<<setw(30)<<"1-Show all books"<<"2-Search by ID \n";
@@ -346,27 +352,30 @@ void books :: modify_book(){
 
     cout<<"Enter ID of book to be modified: ";
     cin>>search;
+    for (int i = 0; i < idv.size(); i++)
+    {
+        if (idv[i]==search)
+        {
+            cout<<"Enter book ID: ";
+            getline(cin,idv[i]);
+            cout<<"Enter book title: ";
+            getline(cin,titlev[i]);
+            titlev[0]=toupper(titlev[0]);
+            cout<<"Enter book auther: ";
+            getline(cin,autherv[i]);
+            cout<<"Enter book category: ";
+            getline(cin,categoryv[i]);
+        }
+        
+    }
+    
     ofstream book2("book data.vsc");
     for(int i = 0; i<idv.size() ; i++)
     {
-        if (idv[i]!=search)
-        {
-            book2<<idv[i]<<"\t"<<titlev[i]<<"\t"<<autherv[i]<<"\t"<<categoryv[i]<<endl;
-        }
-        else{
-            cout<<"Enter book ID: ";
-            getline(cin,id);
-            cout<<"Enter book title: ";
-            getline(cin,title);
-            title[0]=toupper(title[0]);
-            cout<<"Enter book auther: ";
-            getline(cin,auther);
-            cout<<"Enter book category: ";
-            getline(cin,category);
-            book2<<id[i]<<"\t"<<title[i]<<"\t"<<auther[i]<<"\t"<<category[i]<<endl;
-        }
+        book2<<idv[i]<<"\t"<<titlev[i]<<"\t"<<autherv[i]<<"\t"<<categoryv[i]<<endl;
     }
     book2.close();
+    
     cout<<"Books modified"<<endl;
     cout<<"press Esc to return to main menu \nor any button to modify another book..."<<endl;
         if(getch()==27){
@@ -413,6 +422,10 @@ void books :: sort(){
 }
 
 void books :: get_data(){
+    idv.clear();
+    titlev.clear();
+    autherv.clear();
+    categoryv.clear();
     ifstream book("book data.vsc");
     for(int i=0;!book.eof();i++){
         getline(book,id,'\t');
