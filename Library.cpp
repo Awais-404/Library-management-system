@@ -7,6 +7,7 @@ using namespace std;
 
 class books{
     string id,title,auther,category,search,pass;
+    vector<string>idv,titlev,autherv,categoryv;
     public:
     void display_books();
     void sbyid();
@@ -20,21 +21,21 @@ class books{
     void modify_book();
     string truncate(string str,int size);
     void sort();
+    void get_data();
 }obj;
 
+    int mode;
 int main(){
+    mode=1;
     system("cls");
     system("color 0B");
     cout<<left;
     char op;
-    cout<<"Choose an action: \n";
-    cout<<"1-Show all books \n";
-    cout<<"2-Search by ID \n";
-    cout<<"3-Search by title \n";
-    cout<<"4-Search by auther \n";
-    cout<<"5-Choose category \n";
-    cout<<"6-ADMIN control \n";
-    cout<<"Esc-Exit program \n";
+    cout<<"\t\t\t\t\t"<<"Choose an action \n";
+    cout<<"\t\t\t"<<setw(30)<<"1-Show all books"<<"2-Search by ID \n";
+    cout<<"\t\t\t"<<setw(30)<<"3-Search by title"<<"4-Search by auther \n";
+    cout<<"\t\t\t"<<setw(30)<<"5-Choose category"<<"6-ADMIN control \n";
+    cout<<"\t\t\t"<<"Esc-Exit program \n";
     op=getch();
     switch(op){
         case '1':{
@@ -75,7 +76,7 @@ void books :: password(){
     char op;
     cout<<"Enter password:\n\t";
     getline(cin,pass);
-    if(pass=="1234"){
+    if(pass=="123"){
         obj.admin();
     }
     else{
@@ -94,19 +95,16 @@ void books :: password(){
 }
 
 void books :: admin(){
+    mode=2;
     system("cls");
     system("color 0A");
     char op;
-    cout<<"Choose an action: \n";
-    cout<<"1-Show all books \n";
-    cout<<"2-Search by ID \n";
-    cout<<"3-Search by title \n";
-    cout<<"4-Search by auther \n";
-    cout<<"5-Choose category \n";
-    cout<<"6-Add book data \n";
-    cout<<"7-Remove book data \n";
-    cout<<"8-Modify book data \n";
-    cout<<"Esc-Back to main menu \n";
+    cout<<"\t\t\t\t\t"<<"Choose an action \n";
+    cout<<"\t\t\t"<<setw(30)<<"1-Show all books"<<"2-Search by ID \n";
+    cout<<"\t\t\t"<<setw(30)<<"3-Search by title"<<"4-Search by auther \n";
+    cout<<"\t\t\t"<<setw(30)<<"5-Choose category"<<"6-Add book data \n";
+    cout<<"\t\t\t"<<setw(30)<<"7-Remove book data"<<"8-Modify book data \n";
+    cout<<"\t\t\t"<<setw(30)<<"Esc-Back to main menu \n";
     op=getch();
     switch(op){
         case '1':{
@@ -157,7 +155,7 @@ void books :: display_books(){
     getline(book,auther,'\t');
     getline(book,category,'\n');
     while(!book.eof()){
-        cout<<setw(10)<<id<<setw(40)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
+        cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
         getline(book,id,'\t');
         getline(book,title,'\t');
         getline(book,auther,'\t');
@@ -178,11 +176,24 @@ void books :: sbyid(){
         getline(book,auther,'\t');
         getline(book,category,'\n');
         if(id==search){
-            cout<<setw(10)<<id<<setw(40)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
+            cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
             break;
         }
     }while(!book.eof());
     book.close();
+    cout<<endl;
+    cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
+        if(getch()==27){
+            if (mode=1){
+                main();
+            }
+            else{
+                admin();
+            }
+        }
+        else{
+            sbyid();
+        }
 }
 
 void books :: sbytitle(){
@@ -197,10 +208,23 @@ void books :: sbytitle(){
         getline(book,auther,'\t');
         getline(book,category,'\n');
         if(title==search){
-            cout<<setw(10)<<id<<setw(40)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
+            cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
         }
     }while(!book.eof());
     book.close();
+    cout<<endl;
+    cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
+        if(getch()==27){
+            if (mode=1){
+                main();
+            }
+            else{
+                admin();
+            }
+        }
+        else{
+            sbytitle();
+        }
 }
 
 void books :: sbyauther(){
@@ -215,10 +239,23 @@ void books :: sbyauther(){
         getline(book,auther,'\t');
         getline(book,category,'\n');
         if(auther==search){
-            cout<<setw(10)<<id<<setw(40)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
+            cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
         }
     }while(!book.eof());
     book.close();
+    cout<<endl;
+    cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
+        if(getch()==27){
+            if (mode=1){
+                main();
+            }
+            else{
+                admin();
+            }
+        }
+        else{
+            sbyauther();
+        }
 }
 
 void books :: sbycategory(){
@@ -233,10 +270,23 @@ void books :: sbycategory(){
         getline(book,auther,'\t');
         getline(book,category,'\n');
         if(category==search){
-            cout<<setw(10)<<id<<setw(40)<<truncate(title,34)<<setw(20)<<auther<<setw(15)<<category<<endl;
+            cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
         }
     }while(!book.eof());
     book.close();
+    cout<<endl;
+    cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
+        if(getch()==27){
+            if (mode=1){
+                main();
+            }
+            else{
+                admin();
+            }
+        }
+        else{
+            sbycategory();
+        }
 }
 
 void books :: add_book(){
@@ -253,7 +303,7 @@ void books :: add_book(){
         getline(cin,category);
         book<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category<<endl;
         cout<<"Book added "<<endl;
-    book.close();
+        book.close();
         sort();
         cout<<"press Esc to return to main menu \nor any button to continue adding books..."<<endl;
         if(getch()==27){
@@ -266,19 +316,7 @@ void books :: add_book(){
 }
 
 void books :: remove_book(){
-    vector<string>idv,titlev,autherv,categoryv;
-    ifstream book("book data.vsc");
-    for(int i=0;!book.eof();i++){
-        getline(book,id,'\t');
-        getline(book,title,'\t');
-        getline(book,auther,'\t');
-        getline(book,category,'\n');
-        idv.push_back(id);
-        titlev.push_back(title);
-        autherv.push_back(auther);
-        categoryv.push_back(category);
-    }
-    book.close();
+    get_data();
 
     cout<<"Enter ID of book to be removed: ";
     cin>>search;
@@ -295,14 +333,53 @@ void books :: remove_book(){
     }
     book2.close();
     cout<<"Books removed"<<endl;
+    cout<<"press Esc to return to main menu \nor any button to continue removing books..."<<endl;
+        if(getch()==27){
+            obj.admin();
+        }
+        else{
+            obj.remove_book();
+        }
 }
 void books :: modify_book(){
-    
+    get_data();
+
+    cout<<"Enter ID of book to be modified: ";
+    cin>>search;
+    ofstream book2("book data.vsc");
+    for(int i = 0; i<idv.size() ; i++)
+    {
+        if (idv[i]!=search)
+        {
+            book2<<idv[i]<<"\t"<<titlev[i]<<"\t"<<autherv[i]<<"\t"<<categoryv[i]<<endl;
+        }
+        else{
+            cout<<"Enter book ID: ";
+            getline(cin,id);
+            cout<<"Enter book title: ";
+            getline(cin,title);
+            title[0]=toupper(title[0]);
+            cout<<"Enter book auther: ";
+            getline(cin,auther);
+            cout<<"Enter book category: ";
+            getline(cin,category);
+            book2<<id[i]<<"\t"<<title[i]<<"\t"<<auther[i]<<"\t"<<category[i]<<endl;
+        }
+    }
+    book2.close();
+    cout<<"Books modified"<<endl;
+    cout<<"press Esc to return to main menu \nor any button to modify another book..."<<endl;
+        if(getch()==27){
+            obj.admin();
+        }
+        else{
+            obj.modify_book();
+        }
 }
 
 string books :: truncate(string str,int size){
     if(str.length()>size){
-       return str.substr(0,31)+"...";
+       return str.substr(0,size-3)+"...";
     }
     else{
        return str;
@@ -310,7 +387,32 @@ string books :: truncate(string str,int size){
 }
 
 void books :: sort(){
-    vector<string>idv,titlev,autherv,categoryv;
+    get_data();
+
+    int n= titlev.size();
+    string temp;
+   for (int i = 0; i < n; i++){
+      for (int j = i+1; j < n; j++)
+      {
+         if (titlev[i]>titlev[j])
+         {
+            swap(idv[i],idv[j]);
+            swap(titlev[i],titlev[j]);
+            swap(autherv[i],autherv[j]);
+            swap(categoryv[i],categoryv[j]);
+         }  
+      }
+   }
+
+   ofstream book2("book data.vsc");
+    for(int i = 0; i<idv.size() ; i++)
+    {
+        book2<<idv[i]<<"\t"<<titlev[i]<<"\t"<<autherv[i]<<"\t"<<categoryv[i]<<endl;
+    }
+    book2.close();
+}
+
+void books :: get_data(){
     ifstream book("book data.vsc");
     for(int i=0;!book.eof();i++){
         getline(book,id,'\t');
@@ -324,37 +426,7 @@ void books :: sort(){
     }
     book.close();
     idv.pop_back();
-
-    int n= titlev.size();
-    string temp;
-   for (int i = 0; i < n; i++){
-      for (int j = i+1; j < n; j++)
-      {
-         if (titlev[i]>titlev[j])
-         {
-            temp=titlev[i];
-            titlev[i]=titlev[j];
-            titlev[j]=temp;
-
-            temp=idv[i];
-            idv[i]=idv[j];
-            idv[j]=temp;
-
-            temp=autherv[i];
-            autherv[i]=autherv[j];
-            autherv[j]=temp;
-
-            temp=category[i];
-            category[i]=category[j];
-            category[j]=temp;
-         }  
-      }
-   }
-
-   ofstream book2("book data.vsc");
-    for(int i = 0; i<idv.size() ; i++)
-    {
-        book2<<idv[i]<<"\t"<<titlev[i]<<auther[i]<<category[i]<<endl;
-    }
-    book2.close();
+    titlev.pop_back();
+    autherv.pop_back();
+    categoryv.pop_back();
 }
