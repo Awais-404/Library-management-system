@@ -246,26 +246,22 @@ void books :: add_book(){
         getline(cin,id);
         cout<<"Enter book title: ";
         getline(cin,title);
+        title[0]=toupper(title[0]);
         cout<<"Enter book auther: ";
         getline(cin,auther);
         cout<<"Enter book category: ";
         getline(cin,category);
-        if(tellp()=0){
-            book<<endl<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category;
-        }
-        else{
-            book<<endl<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category;
-        }
+        book<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category<<endl;
         cout<<"Book added "<<endl;
+    book.close();
+        sort();
         cout<<"press Esc to return to main menu \nor any button to continue adding books..."<<endl;
         if(getch()==27){
-            sort();
             obj.admin();
         }
         else{
             obj.add_book();
         }
-    book.close();
 
 }
 
@@ -314,16 +310,21 @@ string books :: truncate(string str,int size){
 }
 
 void books :: sort(){
-    vector<string>idv,titlev;
+    vector<string>idv,titlev,autherv,categoryv;
     ifstream book("book data.vsc");
     for(int i=0;!book.eof();i++){
         getline(book,id,'\t');
-        getline(book,title,'\n');
+        getline(book,title,'\t');
+        getline(book,auther,'\t');
+        getline(book,category,'\n');
         idv.push_back(id);
         titlev.push_back(title);
+        autherv.push_back(auther);
+        categoryv.push_back(category);
     }
     book.close();
-    
+    idv.pop_back();
+
     int n= titlev.size();
     string temp;
    for (int i = 0; i < n; i++){
@@ -338,6 +339,14 @@ void books :: sort(){
             temp=idv[i];
             idv[i]=idv[j];
             idv[j]=temp;
+
+            temp=autherv[i];
+            autherv[i]=autherv[j];
+            autherv[j]=temp;
+
+            temp=category[i];
+            category[i]=category[j];
+            category[j]=temp;
          }  
       }
    }
@@ -345,7 +354,7 @@ void books :: sort(){
    ofstream book2("book data.vsc");
     for(int i = 0; i<idv.size() ; i++)
     {
-        book2<<idv[i]<<"\t"<<titlev[i]<<endl;
+        book2<<idv[i]<<"\t"<<titlev[i]<<auther[i]<<category[i]<<endl;
     }
     book2.close();
 }
