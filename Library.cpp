@@ -22,6 +22,7 @@ class books{
     string truncate(string str,int size);
     void sort();
     void get_data();
+    void get_data(string);
 }obj;
 
     int mode;
@@ -46,18 +47,22 @@ int main(){
             break;
         }
         case '2':{
+            obj.get_data();
             obj.sbyid();
             break;
         }
         case '3':{
+             obj.get_data();
             obj.sbytitle();
             break;
         }
         case '4':{
+             obj.get_data();
             obj.sbyauther();
             break;
         }
         case '5':{
+             obj.get_data();
             obj.sbycategory();
             break;
         }
@@ -68,6 +73,9 @@ int main(){
         }
         case 27:{
             return 0;
+        }
+        default:{
+            main();
         }
 
     }
@@ -110,7 +118,7 @@ void books :: admin(){
     cout<<"\t\t\t"<<setw(30)<<"3-Search by title"<<"4-Search by auther \n";
     cout<<"\t\t\t"<<setw(30)<<"5-Choose category"<<"6-Add book data \n";
     cout<<"\t\t\t"<<setw(30)<<"7-Remove book data"<<"8-Modify book data \n";
-    cout<<"\t\t\t"<<setw(30)<<"Esc-Back to main menu \n";
+    cout<<"\t\t\t"<<setw(30)<<"Esc-To exit ADMIN menu \n";
     op=getch();
     switch(op){
         case '1':{
@@ -118,18 +126,22 @@ void books :: admin(){
             break;
         }
         case '2':{
-            obj.sbytitle();
+            get_data();
+            obj.sbyid();
             break;
         }
         case '3':{
+             obj.get_data();
             obj.sbytitle();
             break;
         }
         case '4':{
+             obj.get_data();
             obj.sbyauther();
             break;
         }
         case '5':{
+             obj.get_data();
             obj.sbycategory();
             break;
         }
@@ -148,6 +160,9 @@ void books :: admin(){
         case 27:{
             main();
             break;
+        }
+        default:{
+            admin();
         }
     }
 }
@@ -168,29 +183,69 @@ void books :: display_books(){
         getline(book,category,'\n');
     }
     book.close();
+    cout<<endl;
+    cout<<"\t"<<setw(30)<<"1-Search by ID"<<"2-Search by title \n";
+    cout<<"\t"<<setw(30)<<"3-Search by auther"<<"4-Choose category \n";
+    cout<<"\t"<<setw(30)<<"Esc-Return to main menu \n";
+    char op;
+    op=getch();
+    switch(op){
+        case '1':{
+            get_data();
+            sbyid();
+            break;
+        }
+        case '2':{
+            get_data();
+            sbytitle();
+            break;
+        }
+        case '3':{
+            get_data();
+            sbyauther();
+            break;
+        }
+        case '4':{
+            get_data();
+            sbycategory();
+            break;
+        }
+        case 27:{
+            if (mode==1){
+                main();
+            }
+            else{
+                admin();
+            }
+            break;
+        }
+        default:{
+            display_books();
+        }
+
+    }
 }
 
 void books :: sbyid(){
     system("cls");
-    cout<<"Enter book ID:\t";
+    cout<<"Enter book ID:\n\t";
     getline(cin,search);
-    ifstream book("book data.vsc");
     cout<<setw(10)<<"Book ID"<<setw(40)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
-    do{
-        getline(book,id,'\t');
-        getline(book,title,'\t');
-        getline(book,auther,'\t');
-        getline(book,category,'\n');
-        if(id==search){
-            cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
+    for (int i = 0; i < idv.size(); i++)
+    {
+        if (idv[i]==search){
+            cout<<setw(10)<<idv[i]<<setw(40)<<truncate(titlev[i],38)<<setw(20)<<autherv[i]<<setw(15)<<categoryv[i]<<endl;
             break;
         }
-    }while(!book.eof());
-    book.close();
+        else{
+            continue;
+        }
+        
+    }
     cout<<endl;
     cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
         if(getch()==27){
-            if (mode=1){
+            if (mode==1){
                 main();
             }
             else{
@@ -204,24 +259,24 @@ void books :: sbyid(){
 
 void books :: sbytitle(){
    system("cls");
-    cout<<"Enter title:\t";
+    cout<<"Enter title:\n\t";
     getline(cin,search);
-    ifstream book("book data.vsc");
     cout<<setw(10)<<"Book ID"<<setw(40)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
-    do{
-        getline(book,id,'\t');
-        getline(book,title,'\t');
-        getline(book,auther,'\t');
-        getline(book,category,'\n');
-        if(title==search){
-            cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
+    for (int i = 0; i < idv.size(); i++)
+    {
+        if (titlev[i]==search){
+            cout<<setw(10)<<idv[i]<<setw(40)<<truncate(titlev[i],38)<<setw(20)<<autherv[i]<<setw(15)<<categoryv[i]<<endl;
+            break;
         }
-    }while(!book.eof());
-    book.close();
+        else{
+            continue;
+        }
+        
+    }
     cout<<endl;
     cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
         if(getch()==27){
-            if (mode=1){
+            if (mode==1){
                 main();
             }
             else{
@@ -235,24 +290,24 @@ void books :: sbytitle(){
 
 void books :: sbyauther(){
     system("cls");
-    cout<<"Enter auther name:\t";
+    cout<<"Enter auther name:\n\t";
     getline(cin,search);
-    ifstream book("book data.vsc");
     cout<<setw(10)<<"Book ID"<<setw(40)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
-    do{
-        getline(book,id,'\t');
-        getline(book,title,'\t');
-        getline(book,auther,'\t');
-        getline(book,category,'\n');
-        if(auther==search){
-            cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
+    for (int i = 0; i < idv.size(); i++)
+    {
+        if (autherv[i]==search){
+            cout<<setw(10)<<idv[i]<<setw(40)<<truncate(titlev[i],38)<<setw(20)<<autherv[i]<<setw(15)<<categoryv[i]<<endl;
+            break;
         }
-    }while(!book.eof());
-    book.close();
+        else{
+            continue;
+        }
+        
+    }
     cout<<endl;
     cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
         if(getch()==27){
-            if (mode=1){
+            if (mode==1){
                 main();
             }
             else{
@@ -266,46 +321,70 @@ void books :: sbyauther(){
 
 void books :: sbycategory(){
     system("cls");
-    cout<<"Enter category:\t";
+    cout<<"Enter category:\n\t";
     getline(cin,search);
-    ifstream book("book data.vsc");
     cout<<setw(10)<<"Book ID"<<setw(40)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
-    do{
-        getline(book,id,'\t');
-        getline(book,title,'\t');
-        getline(book,auther,'\t');
-        getline(book,category,'\n');
-        if(category==search){
-            cout<<setw(10)<<id<<setw(40)<<truncate(title,38)<<setw(20)<<auther<<setw(15)<<category<<endl;
+    for (int i = 0; i < idv.size(); i++)
+    {
+        if (categoryv[i]==search){
+            cout<<setw(10)<<idv[i]<<setw(40)<<truncate(titlev[i],38)<<setw(20)<<autherv[i]<<setw(15)<<categoryv[i]<<endl;
+            break;
         }
-    }while(!book.eof());
-    book.close();
+        else{
+            continue;
+        }
+        
+    }
     cout<<endl;
-    cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
-        if(getch()==27){
-            if (mode=1){
+    cout<<"Search in this category";
+    cout<<"\t"<<setw(30)<<"1-Search by ID"<<"2-Search by title \n";
+    cout<<"\t"<<setw(30)<<"3-Search by auther"<<"Esc-Return to main menu \n";
+    cout<<"\t"<<setw(30)<<"Or any buttton to choose another category \n";
+    char op;
+    op=getch();
+    switch(op){
+        case '1':{
+            get_data(search);
+            sbyid();
+            break;
+        }
+        case '2':{
+            get_data(search);
+            sbytitle();
+            break;
+        }
+        case '3':{
+            get_data(search);
+            sbyauther();
+            break;
+        }
+        case 27:{
+            if (mode==1){
                 main();
             }
             else{
                 admin();
             }
+            break;
         }
-        else{
+        default:{
             sbycategory();
         }
+
+    }
 }
 
 void books :: add_book(){
     system("cls");
     ofstream book ("book data.vsc", ios::app);
-        cout<<"Enter book ID: ";
+        cout<<"Enter book ID: \n\t";
         getline(cin,id);
-        cout<<"Enter book title: ";
+        cout<<"Enter book title: \n\t";
         getline(cin,title);
         title[0]=toupper(title[0]);
-        cout<<"Enter book auther: ";
+        cout<<"Enter book auther: \n\t";
         getline(cin,auther);
-        cout<<"Enter book category: ";
+        cout<<"Enter book category: \n\t";
         getline(cin,category);
         book<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category<<endl;
         cout<<"Book added "<<endl;
@@ -322,9 +401,9 @@ void books :: add_book(){
 }
 
 void books :: remove_book(){
+    cout<<endl;
     get_data();
-
-    cout<<"Enter ID of book to be removed: ";
+    cout<<"Enter ID of book to be removed: \n\t";
     cin>>search;
     ofstream book2("book data.vsc");
     for(int i = 0; i<idv.size() ; i++)
@@ -348,22 +427,25 @@ void books :: remove_book(){
         }
 }
 void books :: modify_book(){
+    cout<<endl;
     get_data();
-
-    cout<<"Enter ID of book to be modified: ";
+    cout<<"Enter ID of book to be modified: \n\t";
     cin>>search;
     for (int i = 0; i < idv.size(); i++)
     {
         if (idv[i]==search)
         {
-            cout<<"Enter book ID: ";
+            getline(cin,search);
+            cout<<endl;
+            cout<<"Enter book ID: \n\t";
             getline(cin,idv[i]);
-            cout<<"Enter book title: ";
-            getline(cin,titlev[i]);
-            titlev[0]=toupper(titlev[0]);
-            cout<<"Enter book auther: ";
+            cout<<"Enter book title: \n\t";
+            getline(cin,title);
+            title[0]=toupper(title[0]);
+            titlev[i]=title;
+            cout<<"Enter book auther: \n\t";
             getline(cin,autherv[i]);
-            cout<<"Enter book category: ";
+            cout<<"Enter book category: \n\t";
             getline(cin,categoryv[i]);
         }
         
@@ -375,6 +457,8 @@ void books :: modify_book(){
         book2<<idv[i]<<"\t"<<titlev[i]<<"\t"<<autherv[i]<<"\t"<<categoryv[i]<<endl;
     }
     book2.close();
+
+    sort();
     
     cout<<"Books modified"<<endl;
     cout<<"press Esc to return to main menu \nor any button to modify another book..."<<endl;
@@ -436,6 +520,31 @@ void books :: get_data(){
         titlev.push_back(title);
         autherv.push_back(auther);
         categoryv.push_back(category);
+    }
+    book.close();
+    idv.pop_back();
+    titlev.pop_back();
+    autherv.pop_back();
+    categoryv.pop_back();
+}
+
+void books :: get_data(string categorys){
+    idv.clear();
+    titlev.clear();
+    autherv.clear();
+    categoryv.clear();
+    ifstream book("book data.vsc");
+    for(int i=0;!book.eof();i++){
+        getline(book,id,'\t');
+        getline(book,title,'\t');
+        getline(book,auther,'\t');
+        getline(book,category,'\n');
+        if (category==categorys){
+            idv.push_back(id);
+            titlev.push_back(title);
+            autherv.push_back(auther);
+            categoryv.push_back(category);
+        }
     }
     book.close();
     idv.pop_back();
