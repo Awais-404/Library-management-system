@@ -19,10 +19,12 @@ class books{
     void add_book();
     void remove_book();
     void modify_book();
-    string truncate(string str,int size);
+    string truncate(string str, int size);
+    string set_case(string, string);
     void sort();
     void get_data();
     void get_data(string);
+
 }obj;
 
     int mode;
@@ -261,6 +263,7 @@ void books :: sbytitle(){
    system("cls");
     cout<<"Enter title:\n\t";
     getline(cin,search);
+    search=set_case(search,"first");
     cout<<setw(10)<<"Book ID"<<setw(40)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
     for (int i = 0; i < idv.size(); i++)
     {
@@ -292,6 +295,7 @@ void books :: sbyauther(){
     system("cls");
     cout<<"Enter auther name:\n\t";
     getline(cin,search);
+    search=set_case(search,"each");
     cout<<setw(10)<<"Book ID"<<setw(40)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
     for (int i = 0; i < idv.size(); i++)
     {
@@ -323,6 +327,7 @@ void books :: sbycategory(){
     system("cls");
     cout<<"Enter category:\n\t";
     getline(cin,search);
+    search=set_case(search,"first");
     cout<<setw(10)<<"Book ID"<<setw(40)<<"Title"<<setw(20)<<"Auther"<<setw(15)<<"Category"<<endl;
     for (int i = 0; i < idv.size(); i++)
     {
@@ -381,11 +386,13 @@ void books :: add_book(){
         getline(cin,id);
         cout<<"Enter book title: \n\t";
         getline(cin,title);
-        title[0]=toupper(title[0]);
+        title=set_case(title,"first");
         cout<<"Enter book auther: \n\t";
         getline(cin,auther);
+        auther=set_case(auther,"each");
         cout<<"Enter book category: \n\t";
         getline(cin,category);
+        category=set_case(category,"first");
         book<<id<<"\t"<<title<<"\t"<<auther<<"\t"<<category<<endl;
         cout<<"Book added "<<endl;
         book.close();
@@ -551,4 +558,36 @@ void books :: get_data(string categorys){
     titlev.pop_back();
     autherv.pop_back();
     categoryv.pop_back();
+}
+
+string books :: set_case(string str,string case_type){
+   if (case_type == "first")
+   {
+      str[0]=toupper(str[0]);
+      for (int i = 1; i < str.length(); i++){
+         str[i]=tolower(str[i]);
+      }
+      return str;
+   }
+   else if(case_type == "each"){
+      for (int i = 0; i < str.length(); i++)
+      {
+         if (i==0 || str[i-1]==' ' || str[i-1]=='.'){
+            str[i]=toupper(str[i]);
+         }
+         else{
+            str[i]=tolower(str[i]);
+         }
+      }
+      return str;
+   }
+   else if(case_type == "lower"){
+      for (int i = 0; i < str.length(); i++)
+      {
+         str[i]=tolower(str[i]);
+      }
+      return str;
+   }
+   
+   return str;
 }
