@@ -8,6 +8,7 @@ using namespace std;
 class books{
     string id,title,auther,category,search,pass;
     vector<string>idv,titlev,autherv,categoryv;
+    bool found;
     public:
     void display_books();
     void sbyid();
@@ -24,6 +25,7 @@ class books{
     void sort();
     void get_data();
     void get_data(string);
+    bool checkID(string);
 
 }obj;
 
@@ -237,6 +239,7 @@ void books :: sbyid(){
     {
         if (idv[i]==search){
             cout<<setw(10)<<idv[i]<<setw(40)<<truncate(titlev[i],38)<<setw(20)<<autherv[i]<<setw(15)<<categoryv[i]<<endl;
+            found=true;
             break;
         }
         else{
@@ -245,6 +248,11 @@ void books :: sbyid(){
         
     }
     cout<<endl;
+    if (!found)
+    {
+        cout<<"This ID does not exist"<<endl;
+    }
+    
     cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
         if(getch()==27){
             if (mode==1){
@@ -269,6 +277,7 @@ void books :: sbytitle(){
     {
         if (titlev[i]==search){
             cout<<setw(10)<<idv[i]<<setw(40)<<truncate(titlev[i],38)<<setw(20)<<autherv[i]<<setw(15)<<categoryv[i]<<endl;
+            found=true;
             break;
         }
         else{
@@ -277,6 +286,10 @@ void books :: sbytitle(){
         
     }
     cout<<endl;
+    if (!found)
+    {
+        cout<<"This title does not exist"<<endl;
+    }
     cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
         if(getch()==27){
             if (mode==1){
@@ -301,6 +314,7 @@ void books :: sbyauther(){
     {
         if (autherv[i]==search){
             cout<<setw(10)<<idv[i]<<setw(40)<<truncate(titlev[i],38)<<setw(20)<<autherv[i]<<setw(15)<<categoryv[i]<<endl;
+            found=true;
             break;
         }
         else{
@@ -309,7 +323,11 @@ void books :: sbyauther(){
         
     }
     cout<<endl;
-    cout<<"press Esc to return to main menu \nor any button to search for another book..."<<endl;
+    if (!found)
+    {
+        cout<<"This auther does not exist"<<endl;
+    }
+    cout<<"press Esc to return to main menu \nor any button to search for another auther..."<<endl;
         if(getch()==27){
             if (mode==1){
                 main();
@@ -333,6 +351,7 @@ void books :: sbycategory(){
     {
         if (categoryv[i]==search){
             cout<<setw(10)<<idv[i]<<setw(40)<<truncate(titlev[i],38)<<setw(20)<<autherv[i]<<setw(15)<<categoryv[i]<<endl;
+            found=true;
             break;
         }
         else{
@@ -341,41 +360,59 @@ void books :: sbycategory(){
         
     }
     cout<<endl;
-    cout<<"Search in this category";
-    cout<<"\t"<<setw(30)<<"1-Search by ID"<<"2-Search by title \n";
-    cout<<"\t"<<setw(30)<<"3-Search by auther"<<"Esc-Return to main menu \n";
-    cout<<"\t"<<setw(30)<<"Or any buttton to choose another category \n";
-    char op;
-    op=getch();
-    switch(op){
-        case '1':{
-            get_data(search);
-            sbyid();
-            break;
-        }
-        case '2':{
-            get_data(search);
-            sbytitle();
-            break;
-        }
-        case '3':{
-            get_data(search);
-            sbyauther();
-            break;
-        }
-        case 27:{
+    if (!found)
+    {
+        cout<<"This category does not exist press, 'Esc' to return to menu \nOr any buttton to choose another category \n"<<endl;
+        int a=getch();
+        if(a=27){
             if (mode==1){
                 main();
             }
             else{
                 admin();
             }
-            break;
         }
-        default:{
+        else{
             sbycategory();
         }
+    }
+    else{
+        cout<<"Search in this category";
+        cout<<"\t"<<setw(30)<<"1-Search by ID"<<"2-Search by title \n";
+        cout<<"\t"<<setw(30)<<"3-Search by auther"<<"Esc-Return to main menu \n";
+        cout<<"\t"<<setw(30)<<"Or any buttton to choose another category \n";
+        char op;
+        op=getch();
+        switch(op){
+            case '1':{
+                get_data(search);
+                sbyid();
+                break;
+            }
+            case '2':{
+                get_data(search);
+                sbytitle();
+                break;
+            }
+            case '3':{
+                get_data(search);
+                sbyauther();
+                break;
+            }
+            case 27:{
+                if (mode==1){
+                    main();
+                }
+                else{
+                    admin();
+                }
+                break;
+            }
+            default:{
+                sbycategory();
+            }
 
+        }
     }
 }
 
@@ -384,6 +421,12 @@ void books :: add_book(){
     ofstream book ("book data.vsc", ios::app);
         cout<<"Enter book ID: \n\t";
         getline(cin,id);
+        if (checkID(id)){
+            cout<<"This ID already exist, please enter another Id \n press any key to comtinue";
+            getch();
+            add_book();
+        }
+        
         cout<<"Enter book title: \n\t";
         getline(cin,title);
         title=set_case(title,"first");
@@ -558,6 +601,20 @@ void books :: get_data(string categorys){
     titlev.pop_back();
     autherv.pop_back();
     categoryv.pop_back();
+}
+
+bool books :: checkID(string id){
+    get_data();
+    for (int i = 0; i < idv.size(); i++)
+    {
+        if (search==idv[i])
+        {
+            return true;
+        }
+        
+    }
+    
+    
 }
 
 string books :: set_case(string str,string case_type){
